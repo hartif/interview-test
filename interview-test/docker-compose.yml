@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: interviewtestdb
+      POSTGRES_USER: interviewtest
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+  app:
+    image: 'springboot-app:latest'
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5433/interviewtestdb
+      SPRING_DATASOURCE_USERNAME: interviewtest
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+volumes:
+  db_data:

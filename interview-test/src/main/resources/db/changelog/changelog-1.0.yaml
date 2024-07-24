@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: interviewtest
+      changes:
+        - createTable:
+            tableName: et_users
+            columns:
+              - column:
+                  name: user_id
+                  type: INTEGER
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: interviewtest
+      changes:
+        - createTable:
+            tableName: et_employees
+            columns:
+              - column:
+                  name: employee_id
+                  type: INTEGER
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: job_title
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: interviewtest
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: et_employees
+            baseColumnNames: user_id
+            constraintName: empl_users_fk
+            referencedTableName: et_users
+            referencedColumnNames: user_id
+
+  - changeSet:
+      id: 4
+      author: interviewtest
+      changes:
+        - createSequence:
+            sequenceName: et_users_seq
+            incrementBy: 1
+            startValue: 1
+
+  - changeSet:
+      id: 5
+      author: interviewtest
+      changes:
+        - createSequence:
+            sequenceName: et_employees_seq
+            incrementBy: 1
+            startValue: 1
